@@ -60,6 +60,11 @@ public class Trie implements Serializable {
                 .toList();
     }
 
+    public List<Suggestion> suggest(String prefix) {
+        TrieNode start = find(prefix);
+        return start == null ? List.of() : start.topK();
+    }
+
     private void walk(TrieNode node, StringBuilder path, List<Suggestion> collected) {
         if (node.isTerminal()) {
             collected.add(new Suggestion(path.toString(), node.score()));
